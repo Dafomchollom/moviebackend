@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>New blog</title>
+    <title>{{category.name}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/style.css'%}">
     <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/bootstrap.min.css'%}">
@@ -101,7 +101,7 @@
             </a>
         </div>
         <div class="latest-movie-section row">
-            {% for a in article %}
+            {% for a in post %}
                 <div class="col-md-4">
                     <a href="">
                         <div class="card">
@@ -119,9 +119,9 @@
         <div class="container">
             <div class="row">
                 <section class="posts-wrapper col-sm-12 col-md-12 col-lg-8">
-                    {% for p in article %}
+                    {% for p in post %}
                         <div class="posts my-3">
-                            <p class="movie-details"><a href="" class="date">{{p.postdate}}</a> | <a href="" class="genre">COMEDY,</a> </p>
+                            <p class="movie-details"><a href="" class="date">{{p.postdate}}</a> | <a href="{{p.category.get_absoulte_url}}" class="genre">{{p.category}}</a> </p>
                             <img src="{{p.thumbnail.url}}" class="card-img movieimage" alt="">
                             <h3 class="title my-3">{{p.title}}</h3>
                             <p><b>Released:</b> {{p.releasedate}}</p>

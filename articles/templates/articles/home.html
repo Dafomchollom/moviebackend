@@ -121,7 +121,7 @@
                 <section class="posts-wrapper col-sm-12 col-md-12 col-lg-8">
                     {% for p in article %}
                         <div class="posts my-3">
-                            <p class="movie-details"><a href="" class="date">{{p.postdate}}</a> | <a href="" class="genre">COMEDY,</a> </p>
+                            <p class="movie-details"><a href="" class="date">{{p.postdate}}</a> | <a href="{{p.category.get_absoulte_url}}" class="genre">{{p.category}}</a> </p>
                             <img src="{{p.thumbnail.url}}" class="card-img movieimage" alt="">
                             <h3 class="title my-3">{{p.title}}</h3>
                             <p><b>Released:</b> {{p.releasedate}}</p>
