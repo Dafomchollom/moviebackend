@@ -124,6 +124,45 @@ body {
           font-size: 18px;
           line-height: 1.875;
           text-align: justify; }
+      body .main .row .posts-wrapper .comments-wrapper form .form-group .form-control {
+        border-radius: 0px;
+        padding: 10px 20px;
+        transition: all .5s; }
+      body .main .row .posts-wrapper .comments-wrapper form .form-group .form-control:focus {
+        box-shadow: none;
+        border-color: #ffc400;
+        transition: all .5s; }
+      body .main .row .posts-wrapper .comments-wrapper .comments {
+        display: flex; }
+        @media (max-width: 500px) {
+          body .main .row .posts-wrapper .comments-wrapper .comments .comments-img-wrapper {
+            width: 15%; }
+            body .main .row .posts-wrapper .comments-wrapper .comments .comments-img-wrapper img {
+              width: 40px !important;
+              transition: all .5s; }
+          body .main .row .posts-wrapper .comments-wrapper .comments .comments-details {
+            width: 85%; }
+            body .main .row .posts-wrapper .comments-wrapper .comments .comments-details .date {
+              font-size: 12px; } }
+        @media (max-width: 800px) {
+          body .main .row .posts-wrapper .comments-wrapper .comments .comments-img-wrapper {
+            width: 12%; }
+            body .main .row .posts-wrapper .comments-wrapper .comments .comments-img-wrapper img {
+              width: 50px;
+              transition: all .5s; }
+          body .main .row .posts-wrapper .comments-wrapper .comments .comments-details {
+            width: 85%; }
+            body .main .row .posts-wrapper .comments-wrapper .comments .comments-details .date {
+              font-size: 12px; } }
+        @media (min-width: 800px) {
+          body .main .row .posts-wrapper .comments-wrapper .comments .comments-img-wrapper {
+            width: 10%; }
+            body .main .row .posts-wrapper .comments-wrapper .comments .comments-img-wrapper img {
+              width: 50px; }
+          body .main .row .posts-wrapper .comments-wrapper .comments .comments-details {
+            width: 90%; }
+            body .main .row .posts-wrapper .comments-wrapper .comments .comments-details .date {
+              font-size: 12px; } }
     body .main .row .side-bar .search-bar-mini {
       background: #F2F2F2; }
       body .main .row .side-bar .search-bar-mini h3 {

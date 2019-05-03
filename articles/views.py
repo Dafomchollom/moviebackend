@@ -14,7 +14,7 @@ def list_of_post_by_category(request, category_slug):
 
 def articlehome(request):
     article = Article.objects.all().filter(Post_status='published').order_by('-postdate')[:3]
-    carousel = Article.objects.all().filter(Post_status='published').order_by('-postdate')[:5]
+    carousel = Article.objects.all().filter(Post_status='published').order_by('-postdate')[:4]
     return render(request, 'articles/home.html', {'article': article, 'carousel':carousel})
 
 def articleDetails(request, slug):

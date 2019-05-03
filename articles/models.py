@@ -2,6 +2,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 # Create your models here.
 
 class Category(models.Model):
@@ -26,7 +27,7 @@ class Article(models.Model):
     )
     title = models.CharField(max_length=1000)
     slug = models.SlugField(unique=True)
-    category = models.ForeignKey(Category)
+    category = models.ManyToManyField(Category)
     thumbnail = models.ImageField(default='default.png',blank=True)
     body = RichTextUploadingField()
     releasedate = models.DateField()
@@ -42,3 +43,19 @@ class Article(models.Model):
 
     def snippet2(self):
         return self.body[:30]
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Article, related_name='comments')
+    user = models.CharField(max_length=250)
+    email = models.EmailField()
+    body = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+    approved = models.BooleanField(default=False)
+
+    def approved(self):
+        self.approved = True
+        self.save()
+
+    def __str__(self):
+        return self.user
