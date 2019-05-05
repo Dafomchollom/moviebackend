@@ -19,20 +19,64 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Star(models.Model):
+    name = models.CharField(max_length=300)
+    slug = models.SlugField(max_length=250, unique=True)
+    image = models.ImageField(default='default.png', blank=True)
+    about = models.TextField(blank=True, default='no information')
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'star'
+        verbose_name_plural = 'stars'
+
+    def get_absoulte_url(self):
+        return reverse('list_of_post_by_star', args=[self.slug])
+
+    def __str__(self):
+        return self.name
+
+class Director(models.Model):
+    name = models.CharField(max_length=300)
+    slug = models.SlugField(max_length=250, unique=True)
+    image = models.ImageField(default='default.png', blank=True)
+    about = models.TextField(blank=True, default='no information')
+
+    class Meta:
+        ordering = ('name',)
+        verbose_name = 'director'
+        verbose_name_plural = 'directors'
+
+    def get_absoulte_url(self):
+        return reverse('list_of_post_by_director', args=[self.slug])
+
+    def __str__(self):
+        return self.name
+
+
  
 class Article(models.Model):
     STATUS_CHOICES = (
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
+    movie_name = models.CharField(max_length=300, blank=True)
     title = models.CharField(max_length=1000)
     slug = models.SlugField(unique=True)
     category = models.ManyToManyField(Category)
+    star = models.ManyToManyField(Star, default='none')
+    director = models.ManyToManyField(Director, default='none')
     thumbnail = models.ImageField(default='default.png',blank=True)
+    poster = models.ImageField(default='defaultposter.png', blank=True)
     body = RichTextUploadingField()
     releasedate = models.DateField()
     dateseen = models.DateField()
-    postdate = models.DateField()
+    postdate = models.DateTimeField()
+    editorspick = models.BooleanField(default=False)
+    classic = models.BooleanField(default=False)
+    in_cinema = models.BooleanField(default=False)
     Post_status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     
     def __str__(self):
@@ -59,3 +103,18 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.user
+
+
+class Advert(models.Model):
+    ADVERT_CHOICES = (
+        ('draft', 'Draft'),
+        ('published', 'Published'),
+    )
+    name = models.CharField(max_length=500)
+    image = models.ImageField()
+    link = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    Advert_status = models.CharField(max_length=10, choices=ADVERT_CHOICES, default='draft')
+
+    def __str__(self):
+        return self.name

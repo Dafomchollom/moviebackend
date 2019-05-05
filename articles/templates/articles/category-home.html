@@ -16,32 +16,14 @@
             width:100% !important;
             height: auto !important;
         }
+        .carousel-item:first-child{
+
+        }
     </style>
     
 </head>
 <body>
-    <div class="header-one">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-2"><a href=""><i class="fa fa-twitter"></i></a></div>
-                <div class="col-10">
-                    <div class="nav-search-wrapper">
-                        <form action="">
-                            <div class="input-group mb-3 animated fadeInRight">
-                                <div class="input-group-prepend">
-                                    <button type="submit" class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></button>
-                                </div>
-                                <input type="text" class=" form-control" placeholder="SEARCH" aria-label="SEARCH" aria-describedby="basic-addon1">
-                            </div>
-                        </form>
-                        <button class="search-toggle-one animated fadeInRight"><i class="fa fa-search"></i></button>
-                        <button class="search-toggle-two animated fadeInRight"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light mt-5">
         <div class="container">
             <a class="navbar-brand" href="#">UDUAKS MOVIE REVIEWS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,71 +40,98 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
+                    <div class="nav-search-wrapper">
+                        <form action="">
+                            <div class="input-group mb-3 animated fadeInRight">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></button>
+                                </div>
+                                <input type="text" class=" form-control" placeholder="SEARCH" aria-label="SEARCH" aria-describedby="basic-addon1">
+                            </div>
+                        </form>
+                        <button class="search-toggle-one animated fadeInRight"><i class="fa fa-search"></i></button>
+                        <button class="search-toggle-two animated fadeInRight"><i class="fa fa-times"></i></button>
+                    </div>
                 </ul>
             </div>
         </div>
     </nav>
     <section class="" id="carousel-wrapper">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                {% for c in carousel%}
-                    <li data-target="#carouselExampleIndicators" ></li>
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <a href="">
-                        <img class="d-block w-100" src="{% static 'img/1.jpg'%}" alt="First slide">
-                        <div class="carousel-caption animated fadeInDown">
-                            <h5>Lion heart</h5>
-                            <p>Nnaji is shooting for the skies ...</p>
-                        </div>
-                    </a>
-                </div>
-                {% for c in carousel %}
-                    <div class="carousel-item">
-                        <a href="">
-                            <img class="d-block w-100" src="{{c.thumbnail.url}}" alt="First slide">
-                            <div class="carousel-caption animated fadeInDown">
-                                <h5>{{c.title}}</h5>
+        <ul class="nav nav-pills mb-0" id="pills-tab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#movies" role="tab" aria-controls="pills-home" aria-selected="true">{{category.name}}</a>
+            </li>
+        </ul>
+        <div class="row mt-2 px-2">
+            <div class="col-md-7 custom-col px-0 my-1">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="movies" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                                {% for c in postAds %}
+                                    <li data-target="#carouselExampleIndicators" ></li>
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner h-25">
+                                {% for p in postAds %}
+                                    <div class="carousel-item">
+                                        <a href="{% url 'details' slug=p.slug %}">
+                                            <img class="d-block w-100" src="{{p.thumbnail.url}}" alt="First slide">
+                                            <div class="carousel-caption animated fadeInDown">
+                                                <div class="text">
+                                                    <h5>{{p.title}}</h5>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                {% endfor %}
                             </div>
-                        </a>
+                            <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     </div>
-                {% endfor %}
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="" aria-hidden="true"><i class="fa fa-arrow-left"></i></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="" aria-hidden="true"><i class="fa fa-arrow-right"></i></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
-        <div class="latest-movie-section row">
-            {% for a in post %}
-                <div class="col-md-4">
-                    <a href="">
-                        <div class="card">
-                            <img src="{{a.thumbnail.url}}" class="card-img" alt="">
-                            <div class="card-body">
-                                <p class="">{{a.title}}</p>
-                            </div>
-                        </div>
-                    </a>
                 </div>
-            {% endfor %}
+            </div>
+            <div class="col-md-5" style="overflow-y:auto; height:20em;">
+                <div class="row">
+                    {% for a in adverts %}
+                        <div class="col-md-6 px-1 my-1">
+                            <a href="{{a.link}}">
+                                <div class="card" style="border-radius:0px;">
+                                    <img src="{{a.image.url}}" class="card-img" alt="">
+                                    <div class="card-body m-0 p-1">
+                                        <div style="font-size:14px;">
+                                            <p class="text-1 my-0 py-0 text-center">{{a.title}}</p>
+                                            <p class="text-2 my-0 py-0 text-center">{{a.postdate}} </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}v>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section><hr class="my-5">
+    </section>
     <section class="main">
         <div class="container">
+            <h1 class="lead display-4">Showing Movies Genre <span class="text-warning">{{category.name}}</span></h1>
             <div class="row">
                 <section class="posts-wrapper col-sm-12 col-md-12 col-lg-8">
                     {% for p in post %}
                         <div class="posts my-3">
                             <img src="{{p.thumbnail.url}}" class="card-img movieimage" alt="">
                             <p class="movie-details pt-3"><a href="" class="date">{{p.postdate}}</a> | {% for a in p.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %} </p>
+                            <p class="movie-details pt-0"><b>Staring : </b> {% for c in p.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
+                            <p class="movie-details pt-0"><b>Directors : </b> {% for d in p.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
                             <h3 class="title my-3">{{p.title}}</h3>
                             <p><b>Released:</b> {{p.releasedate}}</p>
                             <p><b>Seen:</b> {{p.dateseen}}</p>
@@ -170,6 +179,8 @@
             $(".search-toggle-two").css({"display": "none"});
           });
         });
+
+        $('.carousel-item:first-child').addClass('active');
     </script>
 </body>
 </html>
