@@ -70,6 +70,7 @@ class Article(models.Model):
     director = models.ManyToManyField(Director, default='none')
     thumbnail = models.ImageField(default='default.png',blank=True)
     poster = models.ImageField(default='defaultposter.png', blank=True)
+    summary = models.TextField(default='no information',blank=True)
     body = RichTextUploadingField()
     releasedate = models.DateField()
     dateseen = models.DateField()
@@ -88,14 +89,24 @@ class Article(models.Model):
     def snippet2(self):
         return self.body[:30]
 
+    def snippet3(self):
+        return self.summary[:300] + '...'
+
+    def snippetmobile(self):
+        return self.summary[:100] + '...'
+
 
 class Comment(models.Model):
+    STATUS_CHOICES = (
+        ('block', 'Block'),
+        ('published', 'Published'),
+    )
     post = models.ForeignKey(Article, related_name='comments')
     user = models.CharField(max_length=250)
     email = models.EmailField()
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    approved = models.BooleanField(default=False)
+    comment_status = models.BooleanField(default=False)
 
     def approved(self):
         self.approved = True

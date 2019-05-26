@@ -17,14 +17,15 @@ class DirectorAdmin(admin.ModelAdmin):
 admin.site.register(Director, DirectorAdmin)
 
 class Articles_admin(admin.ModelAdmin):
-    list_display = ('id','title','postdate','Post_status')
+    list_display = ('id','movie_name','title','postdate','Post_status')
     list_filter = ('Post_status','postdate')
-    search_fields = ('title', 'body')
+    search_fields = ('movie_name','title', 'body')
     prepopulated_fields = {'slug': ('title',)}
 admin.site.register(Article, Articles_admin)  
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'email', 'approved')
+    list_display = ('user', 'email', 'comment_status', 'post')
+    list_filter = ('comment_status','post')
 admin.site.register(Comment, CommentAdmin)
 
 class AdvertsAdmin(admin.ModelAdmin):

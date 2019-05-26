@@ -19,28 +19,7 @@
     </style>
 </head>
 <body>
-    <div class="header-one">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-2"><a href=""><i class="fa fa-twitter"></i></a></div>
-                <div class="col-10">
-                    <div class="nav-search-wrapper">
-                        <form action="">
-                            <div class="input-group mb-3 animated fadeInRight">
-                                <div class="input-group-prepend">
-                                    <button type="submit" class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></button>
-                                </div>
-                                <input type="text" class=" form-control" placeholder="SEARCH" aria-label="SEARCH" aria-describedby="basic-addon1">
-                            </div>
-                        </form>
-                        <button class="search-toggle-one animated fadeInRight"><i class="fa fa-search"></i></button>
-                        <button class="search-toggle-two animated fadeInRight"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand-lg navbar-light mt-5">
         <div class="container">
             <a class="navbar-brand" href="#">UDUAKS MOVIE REVIEWS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,56 +36,91 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Contact</a>
                     </li>
+                    <div class="nav-search-wrapper">
+                        <form action="">
+                            <div class="input-group mb-3 animated fadeInRight">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></button>
+                                </div>
+                                <input type="text" class=" form-control" placeholder="SEARCH" aria-label="SEARCH" aria-describedby="basic-addon1">
+                            </div>
+                        </form>
+                        <button class="search-toggle-one animated fadeInRight"><i class="fa fa-search"></i></button>
+                        <button class="search-toggle-two animated fadeInRight"><i class="fa fa-times"></i></button>
+                    </div>
                 </ul>
             </div>
         </div>
     </nav>
     <section class="" id="carousel-wrapper">
-        <img src="assets/img/4.png" class="card-img movieimage" alt="">
+        <span class="text-light" style="">{{post.title}}</span>
+        <div class="row mt-2 px-2">
+            <div class="col-md-6 custom-col px-0 my-1">
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="movies" role="tabpanel" aria-labelledby="pills-home-tab">
+                        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner h-25">
+                                <div class="carousel-item active">
+                                    <img class="d-block w-100" src="{{post.thumbnail.url}}" alt="First slide">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="overflow-y:auto; height:20em;">
+                <h3 class="text-light pt-0 lead">Summary</h3><hr class="bg-warning py-1">
+                <span class="text-light" style="">{{post.summary | safe}}</span>
+            </div>
+        </div>
     </section>
     <section class="main">
         <div class="container">
             <div class="row">
                 <section class="posts-wrapper col-sm-12 col-md-8">
                     <div class="posts">
-                        <p class="movie-details"><a href="" class="date">{{articles.postdate}}</a> | {% for a in articles.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %}  </p>
-                        <p class="movie-details pt-0"><b>Staring : </b> {% for c in articles.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
-                            <p class="movie-details pt-0"><b>Directors : </b> {% for d in articles.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
-                        <h3 class="title my-3">{{articles.title}}</h3>
-                        <p><b>Released:</b> {{articles.releasedate}}</p>
-                        <p><b>Seen:</b> {{articles.dateseen}}</p>
-                        <p class="text">{{articles.body | safe}}</p>
+                        <p class="movie-details"><a href="" class="date">{{post.postdate}}</a> | {% for a in post.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %}  </p>
+                        <p class="movie-details pt-0"><b>Staring : </b> {% for c in post.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
+                            <p class="movie-details pt-0"><b>Directors : </b> {% for d in post.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
+                        <h3 class="title my-3">{{post.title}}</h3>
+                        <p><b>Released:</b> {{post.releasedate}}</p>
+                        <p><b>Seen:</b> {{post.dateseen}}</p>
+                        <p class="text">{{post.body | safe}}</p>
                     </div><hr>
                     <div class="comments-wrapper">
-                        <h2 class="mt-5">LEAVE A COMMENT</h2>
-                        <p>Total number of comments <span class="text-danger">{{articles.comments.count}}</span></p>
-                        <form action="">
+                        <h2 class="mt-5">Leave a Comment</h2>
+                        <p>Total number of comments <span class="text-danger">{{post.comments.count}}</span></p>
+                        <form action="" method="POST">{% csrf_token %}
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <input type="text" class="form-control" placeholder="username">
+                                    <input type="text" name="user" class="form-control" placeholder="username">
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <input type="email" class="form-control" placeholder="Email">
+                                    <input type="email" name="email" class="form-control" placeholder="Email">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea name="" class="form-control" id="" rows="10"></textarea>
+                                <textarea name="body" class="form-control" id="" rows="10"></textarea>
                             </div>
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </form>
                         <hr>
                         <h2 class="mb-4">COMMENTS</h2>
-                        {% for comment in articles.comments.all %}
-                            <div class="comments py-2 my-3">
-                                <div class="comments-img-wrapper">
-                                    <img src="" class="comment-image" alt="">
+                        {% for comment in post.comments.all %}
+                            {% if comment.comment_status %}
+                                <div class="comments py-2 my-3">
+                                    <div class="comments-img-wrapper">
+                                        <img src="" class="comment-image" alt="">
+                                    </div>
+                                    <div class="comments-details">
+                                        <h5 class="comment-user-name">{{comment.user}} <span class="float-right date">{{comment.created}}</span></h5>
+                                        <p>{{comment.body}}</p>
+                                    </div>
                                 </div>
-                                <div class="comments-details">
-                                    <h5 class="comment-user-name">{{comment.user}} <span class="float-right date">{{comment.created}}</span></h5>
-                                    <p>{{comment.body}}</p>
-                                </div>
-                            </div>
+                            {% endif %}
                         {% empty %}
-                            <p>there are no comments</p>
+                            <p class=""><b>There are no comments</b></p>
                         {% endfor %}
                     </div>
                 </section>
