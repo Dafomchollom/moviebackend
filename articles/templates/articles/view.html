@@ -21,28 +21,39 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-light mt-5">
         <div class="container">
-            <a class="navbar-brand" href="#">UDUAKS MOVIE REVIEWS</a>
+            <a class="navbar-brand" href="{% url 'home' %}">MOVIE REVIEWS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""><i class="fa fa-bars"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
+                        <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span>GENRES</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for g in genre %}
+                                <a class="dropdown-item" href="#">{{g.name}}</a>
+                                <div class="dropdown-divider"></div>
+                            {% endfor %}
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="{% url 'editor' %}">EDITORS<span style="opacity:0">_</span>PICKS</a>
                     </li>
                     <div class="nav-search-wrapper">
-                        <form action="">
+                        <form class="searchform" action="{% url 'search' %}" method="GET">
                             <div class="input-group mb-3 animated fadeInRight">
                                 <div class="input-group-prepend">
                                     <button type="submit" class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></button>
                                 </div>
-                                <input type="text" class=" form-control" placeholder="SEARCH" aria-label="SEARCH" aria-describedby="basic-addon1">
+                                <input type="text" name="q" value="{{request.GET.q}}" class=" form-control" placeholder="SEARCH" aria-label="SEARCH" aria-describedby="basic-addon1">
                             </div>
                         </form>
                         <button class="search-toggle-one animated fadeInRight"><i class="fa fa-search"></i></button>
@@ -126,9 +137,9 @@
                 </section>
                 <section class="side-bar col-sm-12 col-md-4">
                     <div class="search-bar-mini p-3 my-2">
-                        <h3>Search</h3>
-                        <form action="">
-                            <input type="text" class="form-control" placeholder="SEARCH">
+                        <h2 class="">Search</h2>
+                        <form action="{% url 'search' %}" method="GET">
+                            <input type="text" class="form-control" name="q" value="{{request.GET.q}}" placeholder="SEARCH">
                         </form>
                     </div>
                     <div class="search-bar-mini p-3 my-3">
@@ -152,6 +163,34 @@
             </div>
         </div>
     </section>
+    <footer class="footer-distributed">
+
+        <div class="footer-left">
+
+            <p class="footer-links">
+                <a href="{% url 'home' %}">Home</a>
+                ·
+                {% for c in genre %}
+                
+                <a href="{{c.get_absoulte_url}}">{{c.name}}</a>
+                ·
+                {% endfor %}
+            </p>
+
+            <p class="footer-company-name">Company Name &copy; 2015</p>
+
+        </div>
+
+        <div class="footer-right">
+
+            <form action="{% url 'search' %}" method="GET">
+                <input placeholder="Search our website" name="q" value="{{request.GET.q}}" />
+                <i class="fa fa-search"></i>
+            </form>
+
+        </div>
+
+    </footer>
     <script></script>
     <script src="{% static 'js/jquery-3.2.1.slim.min.js'%}"></script>
     <script src="{% static 'js/popper.min.js'%}"></script>

@@ -38,6 +38,9 @@ class Star(models.Model):
     def __str__(self):
         return self.name
 
+    def snippet(self):
+        return self.about[:300] + '...'
+
 class Director(models.Model):
     name = models.CharField(max_length=300)
     slug = models.SlugField(max_length=250, unique=True)

@@ -20,25 +20,36 @@
     
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light mt-5">
+    <nav class="navbar navbar-expand-lg navbar-light my-3">
         <div class="container">
-            <a class="navbar-brand" href="#">MOVIE REVIEWS</a>
+            <a class="navbar-brand" href="{% url 'home' %}">MOVIE REVIEWS</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class=""><i class="fa fa-bars"></i></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">News</a>
+                        <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span>GENRES</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            {% for g in genre %}
+                                <a class="dropdown-item" href="#">{{g.name}}</a>
+                                <div class="dropdown-divider"></div>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'editor' %}">EDITORS<span style="opacity:0">_</span>PICKS</a>
                     </li>
                     <div class="nav-search-wrapper">
-                        <form action="{% url 'search' %}" method="GET">
+                        <form class="searchform" action="{% url 'search' %}" method="GET">
                             <div class="input-group mb-3 animated fadeInRight">
                                 <div class="input-group-prepend">
                                     <button type="submit" class="input-group-text" id="basic-addon1"><i class="fa fa-search"></i></button>
@@ -134,17 +145,19 @@
                                             <p class="lead text-center" style="font-size:15px; color: black; font-weight: 500">{{e.movie_name}}</p>
                                         </a>
                                     </div>
-                                
                             {% endfor %}
                         </div>
+                        <a href="{% url 'editor' %}" class="float-right" style="text-decoration:#282828;color:#282828;font-size: 20px;">View all <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
-                <div class="heading d-none d-lg-block">
-                    <hr id="hr-2"><h3 id="h-1" class="pl-2">New Movie Trailers</h3><hr id="hr-1">
-                </div>
-                <div class="row d-none d-lg-block">
-                    <div class="col-md-12">
-                        <iframe width="100%" height="500px;" src="https://www.youtube.com/embed/videoseries?list=PLEM_BnG1Dc6k2KDXerIDVeXkpNTBRDTtt" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <div class="trailers d-none d-lg-block my-3">
+                    <div class="heading ">
+                        <hr id="hr-2"><h3 id="h-1" class="pl-2">New Movie Trailers</h3><hr id="hr-1">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <iframe width="100%" height="500px;" src="https://www.youtube.com/embed/videoseries?list=PLEM_BnG1Dc6k2KDXerIDVeXkpNTBRDTtt" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
                     </div>
                 </div>
                 <div class="heading">
@@ -167,6 +180,7 @@
                                     </div>
                             {% endfor %}
                         </div>
+                        <a href="{% url 'classic' %}" class="float-right" style="text-decoration:#282828;color:#282828;font-size: 20px;">View all <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -178,14 +192,13 @@
                 <section class="posts-wrapper col-sm-12 col-md-12 col-lg-8">
                     {% for p in posts %}
                         <div class="posts my-3">
-                            <img src="{{p.thumbnail.url}}" class="card-img movieimage" alt="">
-                            <h3 class="title my-3">{{p.title}}</h3>
-                            <p class="movie-details pt-3"><a href="" class="date">{{p.postdate}}</a> | {% for a in p.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %}  </p>
-                            <p class="movie-details pt-0"><b>Staring : </b> {% for c in p.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
-                            <p class="movie-details pt-0"><b>Directors : </b> {% for d in p.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
-                            <p><b>Released:</b> {{p.releasedate}}</p>
-                            <p><b>Seen:</b> {{p.dateseen}}</p>
-                            <img src="assets/img/3.png" class="card-img my-3" alt="">
+                            <a href="{% url 'details' slug=p.slug %}"><img src="{{p.thumbnail.url}}" class="card-img movieimage" alt=""></a>
+                            <h3 class="title my-2"><a href="{% url 'details' slug=p.slug %}" style="text-decoration:none; color:#282828;">{{p.title}}</a></h3>
+                            <p class="movie-details pt-3 my-1"><span href="" class="date">{{p.postdate}}</span> | {% for a in p.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %}  </p>
+                            <p class="movie-details pt-0 my-1"><b>Staring : </b> {% for c in p.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
+                            <p class="movie-details py-0 my-1"><b>Directors : </b> {% for d in p.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
+                            <p class="pt-0"><b>Released:</b> {{p.releasedate}}</p>
+                            <p class="my-0"><b>Seen:</b> {{p.dateseen}}</p>
                             <p class="text">{{p.snippet | safe}}</p>
                             <a href="{% url 'details' slug=p.slug %}" class="text-danger">Continue Reading <i class="fa fa-arrow-right mx-2" style="font-size: 15px;"></i> </a>
                             <hr>
@@ -195,9 +208,9 @@
                 </section>
                 <section class="side-bar col-sm-12 col-md-12 col-lg-4">
                     <div class="search-bar-mini p-3 my-2">
-                        <h3>Search</h3>
-                        <form action="">
-                            <input type="text" class="form-control" placeholder="SEARCH">
+                        <h2 class="">Search</h2>
+                        <form action="{% url 'search' %}" method="GET">
+                            <input type="text" class="form-control" name="q" value="{{request.GET.q}}" placeholder="SEARCH">
                         </form>
                     </div>
                     <div class="search-bar-mini p-3 my-3">
@@ -221,7 +234,34 @@
             </div>
         </div>
     </section>
-    <script></script>
+    <footer class="footer-distributed">
+
+        <div class="footer-left">
+
+            <p class="footer-links">
+                <a href="{% url 'home' %}">Home</a>
+                ·
+                {% for c in genre %}
+                
+                <a href="{{c.get_absoulte_url}}">{{c.name}}</a>
+                ·
+                {% endfor %}
+            </p>
+
+            <p class="footer-company-name">Company Name &copy; 2015</p>
+
+        </div>
+
+        <div class="footer-right">
+
+            <form action="{% url 'search' %}" method="GET">
+                <input placeholder="Search our website" name="q" value="{{request.GET.q}}" />
+                <i class="fa fa-search"></i>
+            </form>
+
+        </div>
+
+    </footer>
     <script src="{% static 'js/jquery-3.2.1.slim.min.js'%}"></script>
     <script src="{% static 'js/popper.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
@@ -229,15 +269,20 @@
         $(document).ready(function(){
         $(".search-toggle-two").css({"display": "none"}),
           $(".search-toggle-one").click(function(){
-            $("form").css({"display": "inline"}),
+            $(".searchform").css({"display": "inline"}),
             $(".search-toggle-one").css({"display": "none"});
             $(".search-toggle-two").css({"display": "block"});
           });
           $(".search-toggle-two").click(function(){
-            $("form").css({"display": "none"}),
+            $(".searchform").css({"display": "none"}),
             $(".search-toggle-one").css({"display": "block"});
             $(".search-toggle-two").css({"display": "none"});
           });
+          if($(window).width() < 768) {
+            $(".searchform").css({"display": "inline",}),
+            $(".search-toggle-one").css({"display": "none"});
+            $(".search-toggle-two").css({"display": "block"});
+        }
         });
     </script>
 </body>
