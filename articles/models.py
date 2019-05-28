@@ -25,6 +25,7 @@ class Star(models.Model):
     name = models.CharField(max_length=300)
     slug = models.SlugField(max_length=250, unique=True)
     image = models.ImageField(default='default.png', blank=True)
+    poster = models.ImageField(default='defaultstar.png', blank=True)
     about = models.TextField(blank=True, default='no information')
 
     class Meta:
@@ -45,6 +46,7 @@ class Director(models.Model):
     name = models.CharField(max_length=300)
     slug = models.SlugField(max_length=250, unique=True)
     image = models.ImageField(default='default.png', blank=True)
+    poster = models.ImageField(default='defaultstar.png', blank=True)
     about = models.TextField(blank=True, default='no information')
 
     class Meta:
@@ -75,6 +77,7 @@ class Article(models.Model):
     poster = models.ImageField(default='defaultposter.png', blank=True)
     summary = models.TextField(default='no information',blank=True)
     body = RichTextUploadingField()
+    rating = models.IntegerField(default='0', blank=True)
     releasedate = models.DateField()
     dateseen = models.DateField()
     postdate = models.DateTimeField()

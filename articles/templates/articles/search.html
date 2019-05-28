@@ -43,7 +43,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% for g in genre %}
-                                <a class="dropdown-item" href="#">{{g.name}}</a>
+                                <a class="dropdown-item" href="{{g.get_absoulte_url}}">{{g.name}}</a>
                                 <div class="dropdown-divider"></div>
                             {% endfor %}
                         </div>
@@ -79,7 +79,7 @@
                             <a href="{{a.get_absoulte_url}}" style="text-decoration:none; color:black">
                                 <div class="row my-2 bg-light p-3">
                                     <div class="col-3">
-                                        <img src="{{a.image.url}}" class="card-img" alt="">
+                                        <img src="{{a.poster.url}}" class="card-img" alt="">
                                     </div>
                                     <div class="col-9">
                                         <div class="search-movie-details">
@@ -104,7 +104,7 @@
                                 </div>
                                 <div class="col-9">
                                     <div class="search-movie-details">
-                                        <h4 class="lead mb-0"><span style="font-weight:500; opacity: .9;">{{m.movie_name}}</span> <span class="float-right text-white bg-success py-2 px-3" style="font-size:15px; font-weight:700;">8.5</span></h4>
+                                        <h4 class="lead mb-0"><span style="font-weight:500; opacity: .9;">{{m.movie_name}}</span> <span class="float-right text-white bg-success py-2 px-3" style="font-size:15px; font-weight:700;">{{m.rating}}</span></h4>
                                         <span style="font-size:12px; opacity: .7; font-weight: 700">{{m.postdate}}</span>
                                         <div class="summary-wrapper">
                                             <p class="summary lg-screen" style="font-family: Helvetica,Arial,sans-serif;">{{m.snippet3 | safe}}</p>

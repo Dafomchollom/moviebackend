@@ -34,13 +34,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'starlist' %}">STARS</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span>GENRES</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             {% for g in genre %}
-                                <a class="dropdown-item" href="#">{{g.name}}</a>
+                                <a class="dropdown-item" href="{{g.get_absoulte_url}}">{{g.name}}</a>
                                 <div class="dropdown-divider"></div>
                             {% endfor %}
                         </div>
@@ -195,6 +198,7 @@
                             <a href="{% url 'details' slug=p.slug %}"><img src="{{p.thumbnail.url}}" class="card-img movieimage" alt=""></a>
                             <h3 class="title my-2"><a href="{% url 'details' slug=p.slug %}" style="text-decoration:none; color:#282828;">{{p.title}}</a></h3>
                             <p class="movie-details pt-3 my-1"><span href="" class="date">{{p.postdate}}</span> | {% for a in p.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %}  </p>
+                            <p class="movie-details  my-0"><b class="">Rating</b> : <b class="rating px-3 py-1 text-light" style="border-radius:4px">{{p.rating}}</b></p>
                             <p class="movie-details pt-0 my-1"><b>Staring : </b> {% for c in p.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
                             <p class="movie-details py-0 my-1"><b>Directors : </b> {% for d in p.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
                             <p class="pt-0"><b>Released:</b> {{p.releasedate}}</p>
@@ -283,6 +287,20 @@
             $(".search-toggle-one").css({"display": "none"});
             $(".search-toggle-two").css({"display": "block"});
         }
+        });
+
+        $('.rating').each(function() {
+        if (parseInt($(this).text()) >= 7) {
+            $(this).css("background-color","#0dc60d");
+            } else if(parseInt($(this).text()) >= 5 && parseInt($(this).text()) < 7 ) {
+                $(this).css("background-color","#ffbf00");
+            }
+            else if(parseInt($(this).text()) >=3 && parseInt($(this).text()) < 5 ) {
+                $(this).css("background-color","#f26000");
+            }
+            else if(parseInt($(this).text()) < 3  ) {
+                $(this).css("background-color","red");
+            }
         });
     </script>
 </body>

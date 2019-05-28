@@ -11,12 +11,13 @@ def list_of_post_by_category(request, category_slug):
     adverts = Advert.objects.all().filter(Advert_status='published').order_by('-date')[:2]
     postAds = Article.objects.filter(Post_status='published').order_by('-postdate')
     post = Article.objects.filter(Post_status='published').order_by('-postdate')
+    genre = Category.objects.all()
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         post = post.filter(category=category).order_by('-postdate')
         postAds = post.filter(category=category).order_by('-postdate')[:3]
     template = 'articles/category-home.html'
-    context = { 'categories':categories, 'post': post, 'postAds': postAds, 'category': category,'adverts': adverts}
+    context = {'genre':genre ,'categories':categories, 'post': post, 'postAds': postAds, 'category': category,'adverts': adverts}
     return render(request, template, context)
 
 def list_of_post_by_star(request, star_slug):
@@ -111,7 +112,7 @@ def classic(request):
 def editor(request):
     template = 'articles/editor.html'
 
-    editor = Article.objects.filter(classic=True)
+    editor = Article.objects.filter(editorspick=True).order_by('-postdate')
     genre = Category.objects.all()
 
     context = {
@@ -122,7 +123,9 @@ def editor(request):
     return render(request, template, context)
 
 def starlist(request):
-    stars = Star.objects.all().order_by('name')
+    starslist = Star.objects.all().order_by('name')
+    directorslist = Director.objects.all().order_by('name')
+    stars = chain(starslist, directorslist)
     genre = Category.objects.all()
     template = 'articles/stars-list.html'
     context = {
