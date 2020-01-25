@@ -25,7 +25,7 @@ SECRET_KEY = 'dl**hcrzvd8cek7^!hv^rm^-luz2b^nhroojkv_#_d4j_svab0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['dafomchollom.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -49,7 +49,7 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'full',
         'extraPlugins': ','.join(
             [
-               'justify','font','youtube'
+               'justify','font','youtube','autocorrect','imageresize','colorbutton'
             ]
         ),
     },

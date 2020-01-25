@@ -16,9 +16,9 @@
             width:100% !important;
             height: auto !important;
         }
-        .carousel-item:first-child{
+        /* .carousel-item:first-child{
 
-        }
+        } */
     </style>
     
 </head>
@@ -34,26 +34,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'starlist' %}">STARS</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span>GENRES</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% for g in genre %}
-                                <a class="dropdown-item" href="{{g.get_absoulte_url}}">{{g.name}}</a>
-                                <div class="dropdown-divider"></div>
-                            {% endfor %}
-                        </div>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="{% url 'editor' %}">EDITORS<span style="opacity:0">_</span>PICKS</a>
-                    </li>
+                    {% for g in genre %}
+                        <li class="nav-item">
+                            <a class="nav-link text-nowrap" href="{{g.get_absoulte_url}}">{{g.name}}</a>
+                        </li>
+                    {% endfor %}
                     <div class="nav-search-wrapper">
                         <form class="searchform" action="{% url 'search' %}" method="GET">
                             <div class="input-group mb-3 animated fadeInRight">
@@ -70,7 +55,7 @@
             </div>
         </div>
     </nav>
-    <section class="" id="carousel-wrapper">
+    <!-- <section class="" id="carousel-wrapper">
         <ul class="nav nav-pills mb-0" id="pills-tab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#movies" role="tab" aria-controls="pills-home" aria-selected="true">{{category.name}}</a>
@@ -133,18 +118,16 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <section class="main">
         <div class="container">
-            <h1 class="lead display-4">Showing Movies Genre <span class="text-warning">{{category.name}}</span></h1>
+            <h1 class="lead display-4"><span class="text-dark">{{category.name}}</span></h1>
             <div class="row">
                 <section class="posts-wrapper col-sm-12 col-md-12 col-lg-8">
                     {% for p in post %}
                         <div class="posts my-3">
                             <img src="{{p.thumbnail.url}}" class="card-img movieimage" alt="">
-                            <p class="movie-details pt-3"><a href="" class="date">{{p.postdate}}</a> | {% for a in p.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %} </p>
-                            <p class="movie-details pt-0"><b>Staring : </b> {% for c in p.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
-                            <p class="movie-details pt-0"><b>Directors : </b> {% for d in p.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
+                            <p class="movie-details pt-3"><a href="" class="date">{{p.postdate}}</a></p>
                             <h3 class="title my-3">{{p.title}}</h3>
                             <p><b>Released:</b> {{p.releasedate}}</p>
                             <p><b>Seen:</b> {{p.dateseen}}</p>
@@ -154,6 +137,7 @@
                             <hr>
                         </div>
                     {% endfor %}
+                    {% include 'articles/paginator.html' with page=post %}
                 </section>
                 <section class="side-bar col-sm-12 col-md-12 col-lg-4">
                     <div class="search-bar-mini p-3 my-2">
@@ -174,7 +158,7 @@
             </div>
         </div>
     </section>
-    <footer class="footer-distributed">
+    <footer class="footer-distributed" style="">
 
         <div class="footer-left">
 

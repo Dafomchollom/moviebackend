@@ -34,22 +34,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'editor' %}">MOVIE<span style="opacity:0">_</span>REVIEWS</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'starlist' %}">STARS</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span>GENRES</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% for g in genre %}
-                                <a class="dropdown-item" href="{{g.get_absoulte_url}}">{{g.name}}</a>
-                                <div class="dropdown-divider"></div>
-                            {% endfor %}
-                        </div>
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'editor' %}">NIGERIAN<span style="opacity:0">_</span>CINEMA</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" href="{% url 'editor' %}">EDITORS<span style="opacity:0">_</span>PICKS</a>

@@ -17,6 +17,9 @@ def list_of_post_by_category(request, category_slug):
         post = post.filter(category=category).order_by('-postdate')
         postAds = post.filter(category=category).order_by('-postdate')[:3]
     template = 'articles/category-home.html'
+
+    paginator = Paginator(post, 3) # Show 25 contacts per page
+
     context = {'genre':genre ,'categories':categories, 'post': post, 'postAds': postAds, 'category': category,'adverts': adverts}
     return render(request, template, context)
 
@@ -51,8 +54,8 @@ def articlehome(request):
     articleAds = Article.objects.all().filter(Post_status='published').order_by('-postdate')[:2]
     carousel = Article.objects.all().filter(Post_status='published').order_by('-postdate')[:4]
     adverts = Advert.objects.all().filter(Advert_status='published').order_by('-date')
-    classic = Article.objects.filter(classic=True).order_by('-postdate')[:4]
-    editor = Article.objects.filter(editorspick=True).order_by('-postdate')[:4]
+    # classic = Article.objects.filter(classic=True).order_by('-postdate')[:4]
+    # editor = Article.objects.filter(editorspick=True).order_by('-postdate')[:4]
     genre = Category.objects.all()
     paginator = Paginator (article, 3)
     page = request.GET.get('page')

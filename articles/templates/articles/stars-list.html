@@ -31,13 +31,12 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'starlist' %}">STARS</a>
-                    </li>
-                    <li class="nav-item dropdown">
+                    {% for g in genre %}
+                        <li class="nav-item">
+                            <a class="nav-link text-nowrap " href="{{g.get_absoulte_url}}">CLASSICS</a>
+                        </li>
+                    {% endfor %}
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span>GENRES</span>
                         </a>
@@ -47,10 +46,10 @@
                                 <div class="dropdown-divider"></div>
                             {% endfor %}
                         </div>
-                    </li>
-                    <li class="nav-item ">
+                    </li> -->
+                    <!-- <li class="nav-item ">
                         <a class="nav-link" href="{% url 'editor' %}">EDITORS<span style="opacity:0">_</span>PICKS</a>
-                    </li>
+                    </li> -->
                     <div class="nav-search-wrapper">
                         <form class="searchform" action="{% url 'search' %}" method="GET">
                             <div class="input-group mb-3 animated fadeInRight">

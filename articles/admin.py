@@ -6,15 +6,15 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 admin.site.register(Category, CategoryAdmin)
 
-class StarsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
-    prepopulated_fields = {'slug': ('name',)}
-admin.site.register(Star, StarsAdmin)
+# class StarsAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'slug')
+#     prepopulated_fields = {'slug': ('name',)}
+# admin.site.register(Star, StarsAdmin)
 
-class DirectorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug')
-    prepopulated_fields = {'slug': ('name',)}
-admin.site.register(Director, DirectorAdmin)
+# class DirectorAdmin(admin.ModelAdmin):
+#     list_display = ('name', 'slug')
+#     prepopulated_fields = {'slug': ('name',)}
+# admin.site.register(Director, DirectorAdmin)
 
 class Articles_admin(admin.ModelAdmin):
     list_display = ('id','movie_name','title','postdate','Post_status')

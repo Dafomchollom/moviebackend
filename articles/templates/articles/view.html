@@ -30,26 +30,11 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'starlist' %}">STARS</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span>GENRES</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            {% for g in genre %}
-                                <a class="dropdown-item" href="{{g.get_absoulte_url}}">{{g.name}}</a>
-                                <div class="dropdown-divider"></div>
-                            {% endfor %}
-                        </div>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="{% url 'editor' %}">EDITORS<span style="opacity:0">_</span>PICKS</a>
-                    </li>
+                    {% for g in genre %}
+                        <li class="nav-item">
+                            <a class="nav-link text-nowrap" href="{{g.get_absoulte_url}}">{{g.name}}</a>
+                        </li>
+                    {% endfor %}
                     <div class="nav-search-wrapper">
                         <form class="searchform" action="{% url 'search' %}" method="GET">
                             <div class="input-group mb-3 animated fadeInRight">
@@ -95,9 +80,7 @@
                 <section class="posts-wrapper col-sm-12 col-md-8">
                     <div class="posts">
                         <p class="movie-details"><a href="" class="date">{{post.postdate}}</a> | {% for a in post.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %}  </p>
-                        <p class="movie-details  my-1"><b class="">Rating</b> : <b class="rating px-3 py-1 text-light" style="border-radius:4px">{{post.rating}}</b></p>
-                        <p class="movie-details pt-0"><b>Staring : </b> {% for c in post.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
-                        <p class="movie-details pt-0"><b>Directors : </b> {% for d in post.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
+                        <!-- <p class="movie-details  my-1"><b class="">Rating</b> : <b class="rating px-3 py-1 text-light" style="border-radius:4px">{{post.rating}}</b></p> -->
                         <h3 class="title my-3">{{post.title}}</h3>
                         <p><b>Released:</b> {{post.releasedate}}</p>
                         <p><b>Seen:</b> {{post.dateseen}}</p>

@@ -31,13 +31,13 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="{% url 'home' %}">HOME <span class="sr-only">(current)</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'classic' %}">CLASSICS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'starlist' %}">STARS</a>
-                    </li>
-                    <li class="nav-item dropdown">
+                    {% for g in genre %}
+                        <li class="nav-item">
+                            <a class="nav-link text-nowrap" href="{{g.get_absoulte_url}}">{{g.name}}</a>
+                        </li>
+                    {% endfor %}
+                    
+                    <!-- <li class="nav-item dropdown">
                         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span>GENRES</span>
                         </a>
@@ -47,10 +47,7 @@
                                 <div class="dropdown-divider"></div>
                             {% endfor %}
                         </div>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link" href="{% url 'editor' %}">EDITORS<span style="opacity:0">_</span>PICKS</a>
-                    </li>
+                    </li> -->
                     <div class="nav-search-wrapper">
                         <form class="searchform" action="{% url 'search' %}" method="GET">
                             <div class="input-group mb-3 animated fadeInRight">
@@ -121,7 +118,7 @@
                                 </div>
                             </a>
                         </div>
-                    {% endfor %}v>
+                    {% endfor %}
                     </div>
                 </div>
             </div>
@@ -130,7 +127,7 @@
 
     <div class="home-wrapper5">
             <div class="container">
-                <div class="heading">
+                <!-- <div class="heading">
                     <hr id="hr-1"><h3 id="h-1" class="pl-2">Editors Picks</h3><hr id="hr-2">
                 </div>
                 <div class="row">
@@ -150,20 +147,20 @@
                                     </div>
                             {% endfor %}
                         </div>
-                        <a href="{% url 'editor' %}" class="float-right" style="text-decoration:#282828;color:#282828;font-size: 20px;">View all <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
-                </div>
+                </div> -->
                 <div class="trailers d-none d-lg-block my-3">
                     <div class="heading ">
                         <hr id="hr-2"><h3 id="h-1" class="pl-2">New Movie Trailers</h3><hr id="hr-1">
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <iframe width="100%" height="500px;" src="https://www.youtube.com/embed/videoseries?list=PLEM_BnG1Dc6k2KDXerIDVeXkpNTBRDTtt" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe width="100%" height="500px;" src="https://www.youtube.com/embed/videoseries?list=PL55o5NOVOJVngwLsL7XlDPLFI0YHIv2BH" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <!-- <iframe width="100%" height="500px;" src="https://www.youtube.com/embed/videoseries?list=PLEM_BnG1Dc6k2KDXerIDVeXkpNTBRDTtt" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                         </div>
                     </div>
                 </div>
-                <div class="heading">
+                <!-- <div class="heading">
                     <hr id="hr-1"><h3 id="h-1" class="pl-2">Classic Nollywood</h3><hr id="hr-2">
                 </div>
                 <div class="row">
@@ -183,9 +180,8 @@
                                     </div>
                             {% endfor %}
                         </div>
-                        <a href="{% url 'classic' %}" class="float-right" style="text-decoration:#282828;color:#282828;font-size: 20px;">View all <i class="fa fa-arrow-circle-o-right"></i></a>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     
@@ -198,11 +194,8 @@
                             <a href="{% url 'details' slug=p.slug %}"><img src="{{p.thumbnail.url}}" class="card-img movieimage" alt=""></a>
                             <h3 class="title my-2"><a href="{% url 'details' slug=p.slug %}" style="text-decoration:none; color:#282828;">{{p.title}}</a></h3>
                             <p class="movie-details pt-3 my-1"><span href="" class="date">{{p.postdate}}</span> | {% for a in p.category.all %}<a href="{{a.get_absoulte_url}}" class="genre">{{a}}, </a>{% endfor %}  </p>
-                            <p class="movie-details  my-0"><b class="">Rating</b> : <b class="rating px-3 py-1 text-light" style="border-radius:4px">{{p.rating}}</b></p>
-                            <p class="movie-details pt-0 my-1"><b>Staring : </b> {% for c in p.star.all %}<a href="{{c.get_absoulte_url}}" class="genre">{{c}}, </a>{% endfor %}</p>
-                            <p class="movie-details py-0 my-1"><b>Directors : </b> {% for d in p.director.all %}<a href="{{d.get_absoulte_url}}" class="genre">{{d}}, </a>{% endfor %}</p>
                             <p class="pt-0"><b>Released:</b> {{p.releasedate}}</p>
-                            <p class="my-0"><b>Seen:</b> {{p.dateseen}}</p>
+                            <!-- <p class="my-0"><b>Seen:</b> {{p.dateseen}}</p> -->
                             <p class="text">{{p.snippet | safe}}</p>
                             <a href="{% url 'details' slug=p.slug %}" class="text-danger">Continue Reading <i class="fa fa-arrow-right mx-2" style="font-size: 15px;"></i> </a>
                             <hr>
